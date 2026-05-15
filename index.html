@@ -3,31 +3,30 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Kelly — Assistente Financeira</title>
+  <title>Kelly — Assistente Financeira Pessoal</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,700;12..96,800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:        #05090F;
-      --bg2:       #0A1020;
-      --surface:   #0F1825;
-      --surface2:  #162133;
-      --line:      rgba(255,255,255,0.06);
-      --primary:   #4A72A8;
-      --accent:    #6B9FD4;
-      --text:      #EDF2F7;
-      --text2:     #94A3B8;
-      --text3:     #4A5568;
+      --bg:      #FAFAFA;
+      --white:   #FFFFFF;
+      --ink:     #0A0F1E;
+      --ink2:    #3D4A5C;
+      --ink3:    #8A96A3;
+      --blue:    #2563EB;
+      --blue2:   #1D4ED8;
+      --bluebg:  #EFF6FF;
+      --line:    #E8EDF3;
+      --line2:   #F1F5F9;
     }
 
     html { scroll-behavior: smooth; }
-
     body {
       background: var(--bg);
-      color: var(--text);
+      color: var(--ink);
       font-family: 'DM Sans', sans-serif;
       font-size: 16px;
       line-height: 1.6;
@@ -35,405 +34,723 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    .container { max-width: 1120px; margin: 0 auto; padding: 0 32px; }
-    .tag {
-      display: inline-block;
-      font-family: 'Syne', sans-serif;
-      font-size: 11px; font-weight: 700;
-      letter-spacing: 2.5px; text-transform: uppercase;
-      color: var(--accent); margin-bottom: 20px;
-    }
+    .container { max-width: 1140px; margin: 0 auto; padding: 0 40px; }
 
-    /* NAV */
+    /* ── NAV ── */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      padding: 20px 0;
-      border-bottom: 1px solid transparent;
-      transition: border-color 0.3s, backdrop-filter 0.3s, background 0.3s;
+      background: rgba(250,250,250,0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--line);
     }
-    nav.scrolled {
-      background: rgba(5,9,15,0.85);
-      backdrop-filter: blur(20px);
-      border-color: var(--line);
+    nav .inner {
+      max-width: 1140px; margin: 0 auto; padding: 0 40px;
+      height: 60px; display: flex; align-items: center; justify-content: space-between;
     }
-    nav .container { display: flex; align-items: center; justify-content: space-between; }
-    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
-    .nav-logo img { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; border: 1px solid rgba(255,255,255,0.1); }
+    .nav-logo { display: flex; align-items: center; gap: 9px; text-decoration: none; }
+    .nav-logo img {
+      width: 28px; height: 28px; border-radius: 50%;
+      object-fit: cover; border: 1px solid var(--line);
+    }
     .nav-logo-fb {
-      width: 32px; height: 32px; border-radius: 50%;
-      background: var(--surface2); border: 1px solid rgba(255,255,255,0.1);
-      display: none; align-items: center; justify-content: center;
-      font-family: 'Syne', sans-serif; font-weight: 800; font-size: 14px; color: var(--accent);
+      width: 28px; height: 28px; border-radius: 50%;
+      background: var(--ink); display: none; align-items: center; justify-content: center;
+      font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800;
+      font-size: 13px; color: #fff;
     }
-    .nav-name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 17px; color: var(--text); letter-spacing: -0.3px; }
-    .nav-pill { font-size: 11px; font-weight: 600; color: var(--text2); border: 1px solid var(--line); padding: 6px 14px; border-radius: 20px; }
+    .nav-name {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-weight: 700; font-size: 16px; color: var(--ink);
+    }
+    .nav-links { display: flex; gap: 32px; }
+    .nav-links a {
+      font-size: 14px; color: var(--ink2); text-decoration: none;
+      font-weight: 400; transition: color 0.15s;
+    }
+    .nav-links a:hover { color: var(--ink); }
+    .nav-cta {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--blue); color: #fff;
+      font-size: 13px; font-weight: 500;
+      padding: 9px 18px; border-radius: 8px;
+      text-decoration: none; transition: background 0.15s;
+    }
+    .nav-cta:hover { background: var(--blue2); }
 
-    /* HERO */
+    /* ── HERO ── */
     .hero {
       min-height: 100vh;
-      display: grid; grid-template-columns: 1fr 1fr;
-      align-items: center; gap: 80px;
-      padding: 140px 0 80px;
+      display: flex; align-items: center;
+      padding: 100px 0 60px;
+      position: relative; overflow: hidden;
     }
-    .hero-eyebrow { display: flex; align-items: center; gap: 10px; margin-bottom: 28px; }
-    .hero-eyebrow-line { width: 28px; height: 1px; background: var(--accent); }
-    .hero-eyebrow span { font-size: 12px; font-weight: 500; color: var(--accent); letter-spacing: 1px; text-transform: uppercase; }
+
+    /* Dot grid pattern */
+    .hero-dots {
+      position: absolute; top: 0; right: 0;
+      width: 55%; height: 100%;
+      pointer-events: none; overflow: hidden;
+      mask-image: linear-gradient(to left, rgba(0,0,0,0.6) 0%, transparent 80%);
+      -webkit-mask-image: linear-gradient(to left, rgba(0,0,0,0.6) 0%, transparent 80%);
+    }
+    .hero-dots canvas { display: block; width: 100%; height: 100%; }
+
+    .hero .container { position: relative; z-index: 2; }
+
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 8px;
+      border: 1px solid var(--line); border-radius: 20px;
+      padding: 6px 14px 6px 8px;
+      font-size: 12px; color: var(--ink2); font-weight: 500;
+      margin-bottom: 32px;
+      background: var(--white);
+    }
+    .hero-tag-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: #22C55E; box-shadow: 0 0 6px #22C55E;
+    }
+
     .hero h1 {
-      font-family: 'Syne', sans-serif;
-      font-size: clamp(44px, 5vw, 72px);
-      font-weight: 800; line-height: 1.0;
-      letter-spacing: -2.5px; color: var(--text); margin-bottom: 24px;
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-size: clamp(48px, 6.5vw, 88px);
+      font-weight: 800;
+      line-height: 1.0;
+      letter-spacing: -3px;
+      color: var(--ink);
+      margin-bottom: 28px;
+      max-width: 640px;
     }
-    .hero h1 em { font-style: italic; color: var(--accent); font-weight: 400; }
-    .hero-desc { font-size: 17px; color: var(--text2); line-height: 1.7; max-width: 440px; margin-bottom: 44px; font-weight: 300; }
-    .hero-actions { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+    .hero h1 .accent { color: var(--blue); }
 
-    .btn-primary {
-      display: inline-flex; align-items: center; gap: 12px;
-      background: var(--primary); color: #fff; font-size: 15px; font-weight: 600;
-      padding: 15px 28px; border-radius: 12px; text-decoration: none;
-      border: 1px solid rgba(255,255,255,0.1);
-      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
-      box-shadow: 0 4px 24px rgba(74,114,168,0.3);
+    .hero-sub {
+      font-size: 18px; color: var(--ink2); font-weight: 300;
+      line-height: 1.65; max-width: 480px;
+      margin-bottom: 44px;
     }
-    .btn-primary:hover { background: #3d5f8f; transform: translateY(-1px); box-shadow: 0 8px 32px rgba(74,114,168,0.45); }
-    .btn-secondary {
-      font-size: 14px; color: var(--text2); text-decoration: none;
-      display: flex; align-items: center; gap: 6px; transition: color 0.2s;
-    }
-    .btn-secondary:hover { color: var(--text); }
-    .btn-secondary svg { transition: transform 0.2s; }
-    .btn-secondary:hover svg { transform: translateX(3px); }
-    .hero-note { margin-top: 24px; font-size: 12px; color: var(--text3); display: flex; align-items: center; gap: 8px; }
-    .hero-note::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #4ADE80; flex-shrink: 0; box-shadow: 0 0 8px #4ADE80; }
 
-    .hero-right { display: flex; justify-content: center; align-items: center; }
-    .hero-phone-wrap { position: relative; animation: float 5s ease-in-out infinite; }
-    @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-12px); } }
-    .hero-glow {
-      position: absolute; bottom: -60px; left: 50%; transform: translateX(-50%);
-      width: 240px; height: 80px; border-radius: 50%;
-      background: radial-gradient(ellipse, rgba(74,114,168,0.4) 0%, transparent 70%);
-      filter: blur(20px);
+    .hero-btns { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+    .btn-dl {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: var(--ink); color: #fff;
+      font-size: 14px; font-weight: 500;
+      padding: 13px 24px; border-radius: 10px;
+      text-decoration: none; transition: background 0.15s, transform 0.15s;
+      border: 1px solid var(--ink);
     }
-    .phone-mockup {
-      width: 240px; background: #0A1020; border-radius: 40px;
-      border: 1.5px solid rgba(255,255,255,0.12); overflow: hidden; aspect-ratio: 9/19.5;
-      position: relative; box-shadow: 0 40px 80px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.08);
+    .btn-dl:hover { background: #1a2235; transform: translateY(-1px); }
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 14px; color: var(--ink2); font-weight: 400;
+      text-decoration: none; transition: color 0.15s;
+      padding: 13px 0;
     }
-    .phone-mockup::before { content: ''; position: absolute; top: 14px; left: 50%; transform: translateX(-50%); width: 70px; height: 5px; border-radius: 3px; background: rgba(255,255,255,0.12); z-index: 2; }
-    .phone-mockup img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .phone-mockup-ph { width: 100%; height: 100%; background: linear-gradient(160deg, #0F1825 0%, #060E1C 100%); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; }
-    .phone-mockup-ph svg { opacity: 0.1; }
+    .btn-ghost svg { transition: transform 0.15s; }
+    .btn-ghost:hover { color: var(--ink); }
+    .btn-ghost:hover svg { transform: translateX(3px); }
 
-    /* STATS */
-    .stats { padding: 64px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
-    .stats .container { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); }
-    .stat { background: var(--bg); padding: 40px 48px; display: flex; flex-direction: column; gap: 6px; }
-    .stat-num { font-family: 'Syne', sans-serif; font-size: 40px; font-weight: 800; color: var(--text); letter-spacing: -2px; line-height: 1; }
-    .stat-label { font-size: 14px; color: var(--text2); font-weight: 300; }
+    .hero-meta {
+      margin-top: 56px; padding-top: 32px;
+      border-top: 1px solid var(--line);
+      display: flex; align-items: center; gap: 32px; flex-wrap: wrap;
+    }
+    .hero-meta-item { display: flex; flex-direction: column; gap: 2px; }
+    .hero-meta-num {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-size: 22px; font-weight: 800; color: var(--ink); letter-spacing: -0.5px;
+    }
+    .hero-meta-label { font-size: 12px; color: var(--ink3); }
+    .hero-meta-div { width: 1px; height: 36px; background: var(--line); }
 
-    /* FEATURES */
+    .hero-inner { display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: center; }
+    .hero-phone-wrap { display: flex; justify-content: flex-end; align-items: center; padding-right: 24px; }
+    .hero-phone {
+      width: 220px; aspect-ratio: 9/19.5;
+      background: #060c18; border-radius: 38px;
+      border: 1.5px solid rgba(0,0,0,0.09);
+      overflow: hidden; position: relative;
+      box-shadow: 0 0 0 8px rgba(0,0,0,0.04), 0 48px 96px rgba(0,0,0,0.22), 0 24px 48px rgba(0,0,0,0.14);
+      animation: heroFloat 5s ease-in-out infinite;
+    }
+    @keyframes heroFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    .hero-phone-notch {
+      position: absolute; top: 9px; left: 50%; transform: translateX(-50%);
+      width: 62px; height: 7px; border-radius: 4px;
+      background: rgba(0,0,0,0.7); z-index: 3;
+    }
+    .hero-phone-home {
+      position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%);
+      width: 40px; height: 3px; border-radius: 2px;
+      background: rgba(0,0,0,0.15); z-index: 3;
+    }
+    .hero-phone img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    /* ── TRUSTED ── */
+    .trusted {
+      padding: 48px 0;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      background: var(--white);
+    }
+    .trusted .container { display: flex; align-items: center; gap: 40px; flex-wrap: wrap; }
+    .trusted-label { font-size: 11px; font-weight: 600; color: var(--ink3); letter-spacing: 1.5px; text-transform: uppercase; white-space: nowrap; }
+    .trusted-logos { display: flex; align-items: center; gap: 40px; flex-wrap: wrap; opacity: 0.45; }
+    .trusted-logos span {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-size: 14px; font-weight: 700; color: var(--ink);
+      letter-spacing: -0.3px;
+    }
+
+    /* ── FEATURES ── */
     .features { padding: 120px 0; }
-    .features-header { margin-bottom: 72px; max-width: 560px; }
-    .features-header h2 { font-family: 'Syne', sans-serif; font-size: clamp(32px, 4vw, 48px); font-weight: 800; letter-spacing: -1.5px; line-height: 1.1; color: var(--text); margin-bottom: 16px; }
-    .features-header p { font-size: 16px; color: var(--text2); font-weight: 300; }
-    .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 20px; overflow: hidden; }
-    .feat { background: var(--bg); padding: 40px 36px; transition: background 0.25s; }
-    .feat:hover { background: var(--surface); }
-    .feat-icon { width: 44px; height: 44px; margin-bottom: 24px; display: flex; align-items: center; justify-content: center; color: var(--accent); }
-    .feat h3 { font-family: 'Syne', sans-serif; font-size: 17px; font-weight: 700; color: var(--text); margin-bottom: 10px; letter-spacing: -0.3px; }
-    .feat p { font-size: 14px; color: var(--text2); line-height: 1.65; font-weight: 300; }
+    .section-pre {
+      font-size: 11px; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--blue);
+      display: flex; align-items: center; gap: 10px; margin-bottom: 20px;
+    }
+    .section-pre::before { content: ''; width: 20px; height: 1.5px; background: var(--blue); }
 
-    /* SCREENSHOTS */
-    .screenshots { padding: 120px 0; overflow: hidden; }
-    .screenshots-header { margin-bottom: 64px; }
-    .screenshots-header h2 { font-family: 'Syne', sans-serif; font-size: clamp(32px, 4vw, 48px); font-weight: 800; letter-spacing: -1.5px; line-height: 1.1; color: var(--text); margin-bottom: 16px; }
-    .screenshots-header p { font-size: 16px; color: var(--text2); font-weight: 300; }
+    .features-top {
+      display: flex; justify-content: space-between;
+      align-items: flex-end; gap: 40px; margin-bottom: 72px; flex-wrap: wrap;
+    }
+    .features-top h2 {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-size: clamp(32px, 4vw, 52px);
+      font-weight: 800; letter-spacing: -2px; line-height: 1.05;
+      color: var(--ink); max-width: 480px;
+    }
+    .features-top h2 .accent { color: var(--blue); }
+    .features-top p { font-size: 15px; color: var(--ink2); max-width: 300px; font-weight: 300; line-height: 1.7; }
+
+    .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; }
+    .feat {
+      background: var(--white); padding: 36px 32px;
+      transition: background 0.2s;
+      position: relative;
+    }
+    .feat:hover { background: #F8FAFF; }
+    .feat-num {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-size: 11px; font-weight: 700; color: var(--ink3);
+      letter-spacing: 1px; margin-bottom: 20px;
+    }
+    .feat-icon {
+      width: 40px; height: 40px; border-radius: 10px;
+      border: 1px solid var(--line); background: var(--bg);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 20px; color: var(--blue);
+    }
+    .feat h3 {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-size: 17px; font-weight: 700; color: var(--ink);
+      margin-bottom: 10px; letter-spacing: -0.4px;
+    }
+    .feat p { font-size: 14px; color: var(--ink2); line-height: 1.65; font-weight: 300; }
+
+    /* ── SCREENSHOTS ── */
+    .screenshots { padding: 120px 0; background: var(--ink); overflow: hidden; }
+    .screenshots .section-pre { color: #6B9FD4; }
+    .screenshots .section-pre::before { background: #6B9FD4; }
+    .screenshots-head { margin-bottom: 64px; }
+    .screenshots-head h2 {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-size: clamp(32px, 4vw, 52px);
+      font-weight: 800; letter-spacing: -2px; line-height: 1.05;
+      color: #fff; max-width: 560px;
+    }
+    .screenshots-head h2 .accent { color: #6B9FD4; }
+    .screenshots-head p { font-size: 15px; color: #64748B; margin-top: 16px; font-weight: 300; }
 
     .carousel {
-      display: flex; gap: 20px; padding: 20px 32px 48px;
+      display: flex; gap: 20px; padding: 48px 0 64px;
       overflow-x: auto; scroll-snap-type: x mandatory;
-      -webkit-overflow-scrolling: touch; scrollbar-width: none; cursor: grab;
+      -webkit-overflow-scrolling: touch; scrollbar-width: none;
+      align-items: center;
     }
-    .carousel:active { cursor: grabbing; }
     .carousel::-webkit-scrollbar { display: none; }
 
-    .slide { flex: 0 0 200px; scroll-snap-align: center; opacity: 0.45; transition: transform 0.4s, opacity 0.4s; }
-    .slide.active { opacity: 1; transform: scale(1.05); }
-    .slide-phone { background: #0A1020; border-radius: 32px; border: 1.5px solid rgba(255,255,255,0.1); overflow: hidden; aspect-ratio: 9/19.5; position: relative; box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
-    .slide-phone::before { content: ''; position: absolute; top: 12px; left: 50%; transform: translateX(-50%); width: 60px; height: 4px; border-radius: 2px; background: rgba(255,255,255,0.1); z-index: 2; }
+    .slide {
+      flex: 0 0 220px; scroll-snap-align: center;
+      opacity: 0.28; transform: scale(0.82);
+      transition: opacity 0.45s ease, transform 0.45s ease, filter 0.45s ease;
+      filter: brightness(0.6);
+    }
+    .slide.near  { opacity: 0.6; transform: scale(0.91); filter: brightness(0.82); }
+    .slide.active { opacity: 1; transform: scale(1.07); filter: brightness(1); }
+
+    .slide-phone {
+      background: #080f1c; border-radius: 36px;
+      border: 1.5px solid rgba(255,255,255,0.1);
+      overflow: hidden; aspect-ratio: 9/19.5;
+      box-shadow: 0 28px 60px rgba(0,0,0,0.55);
+      position: relative;
+    }
+    .slide.active .slide-phone {
+      box-shadow: 0 40px 80px rgba(0,0,0,0.7), 0 0 0 1px rgba(107,159,212,0.18), 0 0 60px rgba(107,159,212,0.08);
+    }
+    .notch {
+      position: absolute; top: 9px; left: 50%; transform: translateX(-50%);
+      width: 62px; height: 7px; border-radius: 4px;
+      background: #020509; z-index: 3;
+      border: 1px solid rgba(255,255,255,0.04);
+    }
+    .home-ind {
+      position: absolute; bottom: 7px; left: 50%; transform: translateX(-50%);
+      width: 40px; height: 3px; border-radius: 2px;
+      background: rgba(255,255,255,0.12); z-index: 3;
+    }
     .slide-phone img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .slide-ph { width: 100%; height: 100%; background: linear-gradient(160deg, #0F1825 0%, #060E1C 100%); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; }
-    .slide-ph svg { opacity: 0.1; }
-    .slide-label { text-align: center; margin-top: 16px; font-size: 12px; color: var(--text3); font-weight: 500; letter-spacing: 0.3px; }
-    .slide.active .slide-label { color: var(--text2); }
+    .slide-ph {
+      width: 100%; height: 100%;
+      background: linear-gradient(160deg, #0F1825, #060E1C);
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
+    }
+    .slide-ph svg { opacity: 0.07; }
 
-    .carousel-controls { display: flex; align-items: center; justify-content: center; gap: 16px; margin-top: 8px; }
-    .carousel-btn { width: 40px; height: 40px; border-radius: 50%; background: var(--surface); border: 1px solid var(--line); color: var(--text2); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s, color 0.2s; }
-    .carousel-btn:hover { background: var(--surface2); color: var(--text); }
-    .carousel-dots { display: flex; gap: 6px; }
-    .dot { width: 6px; height: 6px; border-radius: 3px; background: var(--text3); border: none; cursor: pointer; transition: all 0.3s; padding: 0; }
-    .dot.active { background: var(--accent); width: 20px; }
+    .slide-label {
+      text-align: center; margin-top: 16px;
+      font-size: 10px; color: #1e2d3d; font-weight: 700;
+      letter-spacing: 1.2px; text-transform: uppercase;
+      transition: color 0.4s;
+    }
+    .slide.active .slide-label { color: #7fa8cc; }
+    .slide.near  .slide-label  { color: #364758; }
 
-    /* PRIVACY */
-    .privacy { padding: 120px 0; border-top: 1px solid var(--line); }
-    .privacy-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
-    .privacy-left h2 { font-family: 'Syne', sans-serif; font-size: clamp(28px, 3.5vw, 40px); font-weight: 800; letter-spacing: -1.5px; line-height: 1.1; color: var(--text); margin-bottom: 16px; }
-    .privacy-left p { font-size: 15px; color: var(--text2); font-weight: 300; line-height: 1.7; }
-    .privacy-items { display: flex; flex-direction: column; }
-    .privacy-item { display: flex; gap: 20px; align-items: flex-start; padding: 24px 0; border-bottom: 1px solid var(--line); }
-    .privacy-item:first-child { padding-top: 0; }
-    .privacy-item:last-child { border-bottom: none; }
-    .privacy-icon { width: 36px; height: 36px; border-radius: 8px; background: var(--surface); border: 1px solid var(--line); display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; color: var(--accent); }
-    .privacy-item h4 { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
-    .privacy-item p { font-size: 13px; color: var(--text2); font-weight: 300; line-height: 1.6; }
+    .carousel-nav {
+      display: flex; align-items: center; justify-content: center; gap: 20px;
+      padding: 0 40px;
+    }
+    .c-btn {
+      width: 44px; height: 44px; border-radius: 50%;
+      border: 1.5px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.04);
+      color: #475569; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.25s; flex-shrink: 0;
+    }
+    .c-btn:hover { background: rgba(107,159,212,0.14); border-color: rgba(107,159,212,0.35); color: #6B9FD4; }
+    .carousel-progress { display: flex; flex-direction: column; align-items: center; gap: 10px; flex: 1; max-width: 220px; }
+    .c-counter { font-size: 11px; color: #2a3a4a; font-weight: 600; letter-spacing: 1px; font-variant-numeric: tabular-nums; }
+    .c-bar { width: 100%; height: 2px; background: rgba(255,255,255,0.06); border-radius: 1px; overflow: hidden; }
+    .c-bar-fill { height: 100%; background: #6B9FD4; border-radius: 1px; transition: width 0.4s ease; width: 10%; }
 
-    /* CTA */
-    .cta { padding: 160px 0; }
-    .cta-inner { border: 1px solid var(--line); border-radius: 24px; padding: 80px; background: var(--surface); position: relative; overflow: hidden; text-align: center; }
-    .cta-inner::before { content: ''; position: absolute; top: -100px; left: 50%; transform: translateX(-50%); width: 500px; height: 300px; background: radial-gradient(ellipse, rgba(74,114,168,0.15) 0%, transparent 70%); pointer-events: none; }
-    .cta h2 { font-family: 'Syne', sans-serif; font-size: clamp(32px, 4vw, 52px); font-weight: 800; letter-spacing: -2px; line-height: 1.05; color: var(--text); margin-bottom: 16px; }
-    .cta p { font-size: 16px; color: var(--text2); font-weight: 300; margin-bottom: 40px; }
+    /* ── SPLIT SECTION ── */
+    .split { padding: 120px 0; }
+    .split-inner {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 80px; align-items: center;
+    }
+    .split-left h2 {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-size: clamp(28px, 3.5vw, 44px);
+      font-weight: 800; letter-spacing: -1.5px; line-height: 1.05;
+      color: var(--ink); margin-bottom: 20px;
+    }
+    .split-left h2 .accent { color: var(--blue); }
+    .split-left p { font-size: 15px; color: var(--ink2); line-height: 1.7; font-weight: 300; margin-bottom: 12px; }
+    .split-items { display: flex; flex-direction: column; gap: 0; }
+    .split-item {
+      display: flex; gap: 16px; align-items: flex-start;
+      padding: 22px 0; border-bottom: 1px solid var(--line);
+    }
+    .split-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .split-item:first-child { padding-top: 0; }
+    .s-icon {
+      width: 34px; height: 34px; border-radius: 8px;
+      border: 1px solid var(--line); background: var(--white);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; margin-top: 2px; color: var(--blue);
+    }
+    .split-item h4 {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-size: 14px; font-weight: 700; color: var(--ink);
+      margin-bottom: 3px; letter-spacing: -0.2px;
+    }
+    .split-item p { font-size: 13px; color: var(--ink2); font-weight: 300; line-height: 1.55; }
 
-    /* FOOTER */
-    footer { padding: 32px 0; border-top: 1px solid var(--line); }
-    footer .container { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
-    .footer-brand { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 15px; color: var(--text3); }
-    footer p { font-size: 13px; color: var(--text3); }
-    footer a { color: var(--text2); text-decoration: none; transition: color 0.2s; }
-    footer a:hover { color: var(--text); }
+    /* ── CTA ── */
+    .cta {
+      padding: 80px 0 120px;
+    }
+    .cta-box {
+      background: var(--ink);
+      border-radius: 20px;
+      padding: 80px;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 48px; flex-wrap: wrap;
+      position: relative; overflow: hidden;
+    }
+    .cta-box::before {
+      content: '';
+      position: absolute; top: -120px; right: -80px;
+      width: 400px; height: 400px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(37,99,235,0.2) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .cta-left h2 {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-size: clamp(28px, 3.5vw, 44px);
+      font-weight: 800; letter-spacing: -1.5px; line-height: 1.05;
+      color: #fff; margin-bottom: 10px;
+    }
+    .cta-left h2 .accent { color: #6B9FD4; }
+    .cta-left p { font-size: 15px; color: #64748B; font-weight: 300; }
+    .btn-dl-light {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: #fff; color: var(--ink);
+      font-size: 14px; font-weight: 600;
+      padding: 14px 26px; border-radius: 10px;
+      text-decoration: none; white-space: nowrap;
+      transition: background 0.15s, transform 0.15s;
+      flex-shrink: 0;
+    }
+    .btn-dl-light:hover { background: #F1F5F9; transform: translateY(-1px); }
 
-    /* REVEAL */
-    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    /* ── FOOTER ── */
+    footer {
+      padding: 28px 0;
+      border-top: 1px solid var(--line);
+      background: var(--white);
+    }
+    footer .container { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    .f-brand { font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; font-size: 15px; color: var(--ink3); }
+    footer p { font-size: 12px; color: var(--ink3); }
+    footer a { color: var(--ink2); text-decoration: none; }
+    footer a:hover { color: var(--ink); }
+
+    /* ── REVEAL ── */
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.55s ease, transform 0.55s ease; }
     .reveal.visible { opacity: 1; transform: translateY(0); }
 
-    @media (max-width: 900px) {
-      .hero { grid-template-columns: 1fr; padding: 120px 0 60px; gap: 60px; text-align: center; }
-      .hero-eyebrow { justify-content: center; }
-      .hero-desc { margin: 0 auto 44px; }
-      .hero-actions { justify-content: center; }
-      .hero-note { justify-content: center; }
-      .hero-right { display: none; }
-      .stats .container { grid-template-columns: 1fr; }
-      .stat { padding: 32px 28px; }
-      .features-grid { grid-template-columns: 1fr; }
-      .privacy-inner { grid-template-columns: 1fr; gap: 48px; }
-      .cta-inner { padding: 48px 28px; }
+    @media (max-width: 960px) {
+      .nav-links { display: none; }
+      .hero h1 { letter-spacing: -2px; }
+      .hero-inner { grid-template-columns: 1fr; }
+      .hero-phone-wrap { display: none; }
+      .features-grid { grid-template-columns: 1fr 1fr; }
+      .split-inner { grid-template-columns: 1fr; gap: 48px; }
+      .cta-box { padding: 48px 32px; }
+      .trusted-logos { gap: 24px; }
     }
-    @media (max-width: 600px) { .container { padding: 0 20px; } }
+    @media (max-width: 600px) {
+      .container { padding: 0 20px; }
+      .features-grid { grid-template-columns: 1fr; }
+      .hero-meta { gap: 20px; }
+    }
   </style>
 </head>
 <body>
 
-<nav id="nav">
-  <div class="container">
+<!-- NAV -->
+<nav>
+  <div class="inner">
     <a class="nav-logo" href="#">
       <img src="screenshots/logo-k.png" alt="Kelly" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
       <div class="nav-logo-fb">K</div>
       <span class="nav-name">Kelly</span>
     </a>
-    <span class="nav-pill">Android</span>
+    <div class="nav-links">
+      <a href="#features">Funcionalidades</a>
+      <a href="#screenshots">Interface</a>
+      <a href="#privacidade">Privacidade</a>
+    </div>
+    <a href="https://github.com/adlernatanael/kelly-landing/releases/download/v1.0.0/kelly.apk" class="nav-cta">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Baixar APK
+    </a>
   </div>
 </nav>
 
-<section class="hero container">
-  <div class="hero-left">
-    <div class="hero-eyebrow">
-      <div class="hero-eyebrow-line"></div>
-      <span>Assistente financeira pessoal</span>
-    </div>
-    <h1>Suas finanças<br/><em>sob controle</em></h1>
-    <p class="hero-desc">Controle entradas, saídas, metas e investimentos. Com IA integrada para análise em linguagem natural — tudo offline, no seu dispositivo.</p>
-    <div class="hero-actions">
-      <a href="https://github.com/adlernatanael/kelly-landing/releases/download/v1.0.0/kelly.apk" class="btn-primary">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-        Baixar APK
-      </a>
-      <a href="#screenshots" class="btn-secondary">
-        Ver capturas
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-      </a>
-    </div>
-    <p class="hero-note">Android 8.0 ou superior — gratuito, sem anúncios</p>
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-dots">
+    <canvas id="dotCanvas"></canvas>
   </div>
-  <div class="hero-right">
-    <div class="hero-phone-wrap">
-      <div class="phone-mockup">
-        <img src="screenshots/1.png" alt="Kelly App" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
-        <div class="phone-mockup-ph" style="display:none">
-          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="5" y="2" width="14" height="20" rx="2"/></svg>
+  <div class="container">
+    <div class="hero-inner">
+      <div class="hero-left">
+        <div class="hero-tag">
+          <span class="hero-tag-dot"></span>
+          Android · Gratuito · Offline
+        </div>
+        <h1>Seu dinheiro.<br/><span class="accent">Sob controle.</span></h1>
+        <p class="hero-sub">Controle entradas, saídas, metas e investimentos. IA integrada para análise financeira em linguagem natural — tudo no seu dispositivo.</p>
+        <div class="hero-btns">
+          <a href="https://github.com/adlernatanael/kelly-landing/releases/download/v1.0.0/kelly.apk" class="btn-dl">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Baixar APK para Android
+          </a>
+          <a href="#screenshots" class="btn-ghost">
+            Ver interface
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </div>
+        <div class="hero-meta">
+          <div class="hero-meta-item">
+            <span class="hero-meta-num">100%</span>
+            <span class="hero-meta-label">Offline — dados no dispositivo</span>
+          </div>
+          <div class="hero-meta-div"></div>
+          <div class="hero-meta-item">
+            <span class="hero-meta-num">0</span>
+            <span class="hero-meta-label">Dados enviados a servidores</span>
+          </div>
+          <div class="hero-meta-div"></div>
+          <div class="hero-meta-item">
+            <span class="hero-meta-num">6</span>
+            <span class="hero-meta-label">Módulos integrados</span>
+          </div>
         </div>
       </div>
-      <div class="hero-glow"></div>
+      <div class="hero-phone-wrap">
+        <div class="hero-phone">
+          <div class="hero-phone-notch"></div>
+          <img src="screenshots/1.jpg" alt="Dashboard Kelly" />
+          <div class="hero-phone-home"></div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<section class="stats reveal">
+<!-- TRUSTED -->
+<div class="trusted">
   <div class="container">
-    <div class="stat"><span class="stat-num">100%</span><span class="stat-label">Offline — seus dados ficam no dispositivo</span></div>
-    <div class="stat"><span class="stat-num">6</span><span class="stat-label">Módulos integrados — saldo, contas, metas e mais</span></div>
-    <div class="stat"><span class="stat-num">0</span><span class="stat-label">Dados financeiros enviados a servidores</span></div>
+    <span class="trusted-label">Tecnologia</span>
+    <div class="trusted-logos">
+      <span>SQLite</span>
+      <span>Expo SDK 54</span>
+      <span>Google Gemini</span>
+      <span>React Native</span>
+      <span>Offline First</span>
+    </div>
   </div>
-</section>
+</div>
 
-<section class="features">
+<!-- FEATURES -->
+<section class="features" id="features">
   <div class="container">
-    <div class="features-header reveal">
-      <span class="tag">Funcionalidades</span>
-      <h2>Tudo que você precisa para controlar seu dinheiro</h2>
-      <p>Um app completo, sem assinatura, sem cadastro, sem complicação.</p>
+    <div class="features-top reveal">
+      <div>
+        <div class="section-pre">Funcionalidades</div>
+        <h2>Tudo que você precisa.<br/><span class="accent">Nada que não precisa.</span></h2>
+      </div>
+      <p>Um app financeiro completo sem assinatura, sem cadastro, sem complicação. Instala e começa.</p>
     </div>
     <div class="features-grid reveal">
       <div class="feat">
-        <div class="feat-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg></div>
+        <div class="feat-num">01</div>
+        <div class="feat-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg></div>
         <h3>Saldo em tempo real</h3>
-        <p>Acompanhe seu saldo atual com projeção futura baseada em lançamentos recorrentes já cadastrados.</p>
+        <p>Saldo atual com projeção futura baseada nos seus lançamentos recorrentes.</p>
       </div>
       <div class="feat">
-        <div class="feat-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div>
+        <div class="feat-num">02</div>
+        <div class="feat-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div>
         <h3>Evolução do saldo</h3>
-        <p>Gráfico interativo mês a mês. Toque em qualquer ponto para ver o saldo exato naquela data.</p>
+        <p>Gráfico interativo mês a mês. Toque em qualquer ponto para ver o valor exato.</p>
       </div>
       <div class="feat">
-        <div class="feat-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div>
+        <div class="feat-num">03</div>
+        <div class="feat-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div>
         <h3>Assistente IA Kelly</h3>
-        <p>Converse naturalmente para analisar gastos, interpretar extratos e registrar lançamentos por texto.</p>
+        <p>Registre lançamentos em linguagem natural. Fale com a Kelly como se fosse uma pessoa.</p>
       </div>
       <div class="feat">
-        <div class="feat-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+        <div class="feat-num">04</div>
+        <div class="feat-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
         <h3>Calendário de lançamentos</h3>
-        <p>Visualização por dia com indicadores de entradas e saídas. Limpo, direto, navegação por mês.</p>
+        <p>Visualização estilo Google Calendar com indicadores de dias com entradas e saídas.</p>
       </div>
       <div class="feat">
-        <div class="feat-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+        <div class="feat-num">05</div>
+        <div class="feat-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
         <h3>Recorrências automáticas</h3>
-        <p>Cadastre uma vez. Aluguel, salário e assinaturas são lançados automaticamente no período certo.</p>
+        <p>Aluguel, salário, assinaturas. Cadastre uma vez e esqueça — lança sozinho.</p>
       </div>
       <div class="feat">
-        <div class="feat-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
-        <h3>Metas financeiras</h3>
-        <p>Defina objetivos, acompanhe o progresso e veja quanto tempo falta com a regra 50/30/20.</p>
+        <div class="feat-num">06</div>
+        <div class="feat-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+        <h3>Metas e regra 50/30/20</h3>
+        <p>Defina objetivos e veja quanto tempo falta para atingi-los com base na sua renda.</p>
       </div>
     </div>
   </div>
 </section>
 
+<!-- SCREENSHOTS -->
 <section class="screenshots" id="screenshots">
   <div class="container">
-    <div class="screenshots-header reveal">
-      <span class="tag">Interface</span>
-      <h2>Desenhado para ser usado todo dia</h2>
-      <p>Interface escura, limpa e rápida — sem distrações, sem excesso.</p>
+    <div class="screenshots-head reveal">
+      <div class="section-pre">Interface</div>
+      <h2>Desenhado para ser<br/>usado <span class="accent">todo dia.</span></h2>
+      <p>Interface escura, limpa e rápida. Sem distrações.</p>
     </div>
   </div>
   <div class="carousel" id="carousel">
-    <div class="slide" data-label="Dashboard"><div class="slide-phone"><img src="screenshots/1.png" alt="Dashboard" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" /><div class="slide-ph" style="display:none"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></div></div><div class="slide-label">Dashboard</div></div>
-    <div class="slide" data-label="Lançamentos"><div class="slide-phone"><img src="screenshots/2.png" alt="Lançamentos" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" /><div class="slide-ph" style="display:none"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div></div><div class="slide-label">Lançamentos</div></div>
-    <div class="slide" data-label="Assistente Kelly"><div class="slide-phone"><img src="screenshots/3.png" alt="Kelly IA" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" /><div class="slide-ph" style="display:none"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div></div><div class="slide-label">Assistente Kelly</div></div>
-    <div class="slide" data-label="Contas"><div class="slide-phone"><img src="screenshots/4.png" alt="Contas" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" /><div class="slide-ph" style="display:none"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg></div></div><div class="slide-label">Contas</div></div>
-    <div class="slide" data-label="Metas"><div class="slide-phone"><img src="screenshots/5.png" alt="Metas" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" /><div class="slide-ph" style="display:none"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div></div><div class="slide-label">Metas</div></div>
-    <div class="slide" data-label="Investimentos"><div class="slide-phone"><img src="screenshots/6.png" alt="Investimentos" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" /><div class="slide-ph" style="display:none"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg></div></div><div class="slide-label">Investimentos</div></div>
+    <div class="slide"><div class="slide-phone"><div class="notch"></div><img src="screenshots/1.jpg" alt="Dashboard" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" /><div class="slide-ph" style="display:none"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></div><div class="home-ind"></div></div><div class="slide-label">Dashboard</div></div>
+    <div class="slide"><div class="slide-phone"><div class="notch"></div><img src="screenshots/2.jpg" alt="Lançamentos" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" /><div class="slide-ph" style="display:none"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div><div class="home-ind"></div></div><div class="slide-label">Lançamentos</div></div>
+    <div class="slide"><div class="slide-phone"><div class="notch"></div><img src="screenshots/3.jpg" alt="Calendário" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" /><div class="slide-ph" style="display:none"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/></svg></div><div class="home-ind"></div></div><div class="slide-label">Calendário</div></div>
+    <div class="slide"><div class="slide-phone"><div class="notch"></div><img src="screenshots/4.jpg" alt="Metas" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" /><div class="slide-ph" style="display:none"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div><div class="home-ind"></div></div><div class="slide-label">Metas</div></div>
+    <div class="slide"><div class="slide-phone"><div class="notch"></div><img src="screenshots/5.jpg" alt="Investimentos" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" /><div class="slide-ph" style="display:none"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg></div><div class="home-ind"></div></div><div class="slide-label">Investimentos</div></div>
+    <div class="slide"><div class="slide-phone"><div class="notch"></div><img src="screenshots/6.jpg" alt="Assistente Kelly" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" /><div class="slide-ph" style="display:none"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div><div class="home-ind"></div></div><div class="slide-label">Assistente Kelly</div></div>
+    <div class="slide"><div class="slide-phone"><div class="notch"></div><img src="screenshots/7.jpg" alt="Contas" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" /><div class="slide-ph" style="display:none"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg></div><div class="home-ind"></div></div><div class="slide-label">Contas</div></div>
+    <div class="slide"><div class="slide-phone"><div class="notch"></div><img src="screenshots/8.jpg" alt="Recorrências" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" /><div class="slide-ph" style="display:none"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 014-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 01-4 4H3"/></svg></div><div class="home-ind"></div></div><div class="slide-label">Recorrências</div></div>
+    <div class="slide"><div class="slide-phone"><div class="notch"></div><img src="screenshots/9.jpg" alt="Relatório" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" /><div class="slide-ph" style="display:none"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><div class="home-ind"></div></div><div class="slide-label">Relatório PDF</div></div>
+    <div class="slide"><div class="slide-phone"><div class="notch"></div><img src="screenshots/10.jpg" alt="Configurações" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" /><div class="slide-ph" style="display:none"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg></div><div class="home-ind"></div></div><div class="slide-label">Configurações</div></div>
+    <div class="slide"><div class="slide-phone"><div class="notch"></div><img src="screenshots/11.jpg" alt="Tela 11" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" /><div class="slide-ph" style="display:none"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></div><div class="home-ind"></div></div><div class="slide-label">Visão Geral</div></div>
+    <div class="slide"><div class="slide-phone"><div class="notch"></div><img src="screenshots/12.jpg" alt="Tela 12" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" /><div class="slide-ph" style="display:none"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></div><div class="home-ind"></div></div><div class="slide-label">Extrato</div></div>
+    <div class="slide"><div class="slide-phone"><div class="notch"></div><img src="screenshots/13.jpg" alt="Tela 13" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" /><div class="slide-ph" style="display:none"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg></div><div class="home-ind"></div></div><div class="slide-label">Análise</div></div>
+    <div class="slide"><div class="slide-phone"><div class="notch"></div><img src="screenshots/14.jpg" alt="Tela 14" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" /><div class="slide-ph" style="display:none"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div><div class="home-ind"></div></div><div class="slide-label">Progresso</div></div>
+    <div class="slide"><div class="slide-phone"><div class="notch"></div><img src="screenshots/15.jpg" alt="Tela 15" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" /><div class="slide-ph" style="display:none"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div><div class="home-ind"></div></div><div class="slide-label">Consulta IA</div></div>
+    <div class="slide"><div class="slide-phone"><div class="notch"></div><img src="screenshots/16.jpg" alt="Tela 16" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" /><div class="slide-ph" style="display:none"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 014-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 01-4 4H3"/></svg></div><div class="home-ind"></div></div><div class="slide-label">Gráficos</div></div>
+    <div class="slide"><div class="slide-phone"><div class="notch"></div><img src="screenshots/17.jpg" alt="Tela 17" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" /><div class="slide-ph" style="display:none"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg></div><div class="home-ind"></div></div><div class="slide-label">Cartões</div></div>
+    <div class="slide"><div class="slide-phone"><div class="notch"></div><img src="screenshots/18.jpg" alt="Tela 18" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" /><div class="slide-ph" style="display:none"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><div class="home-ind"></div></div><div class="slide-label">Exportar</div></div>
+    <div class="slide"><div class="slide-phone"><div class="notch"></div><img src="screenshots/19.jpg" alt="Tela 19" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" /><div class="slide-ph" style="display:none"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></div><div class="home-ind"></div></div><div class="slide-label">Notificações</div></div>
+    <div class="slide"><div class="slide-phone"><div class="notch"></div><img src="screenshots/20.jpg" alt="Tela 20" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" /><div class="slide-ph" style="display:none"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></div><div class="home-ind"></div></div><div class="slide-label">Perfil</div></div>
   </div>
-  <div class="carousel-controls">
-    <button class="carousel-btn" id="prevBtn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg></button>
-    <div class="carousel-dots" id="dots"></div>
-    <button class="carousel-btn" id="nextBtn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg></button>
+  <div class="carousel-nav">
+    <button class="c-btn" id="prevBtn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg></button>
+    <div class="carousel-progress">
+      <span class="c-counter" id="ccounter">01 / 10</span>
+      <div class="c-bar"><div class="c-bar-fill" id="cbarfill"></div></div>
+    </div>
+    <button class="c-btn" id="nextBtn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg></button>
   </div>
 </section>
 
-<section class="privacy reveal">
+<!-- PRIVACY SPLIT -->
+<section class="split" id="privacidade">
   <div class="container">
-    <div class="privacy-inner">
-      <div class="privacy-left">
-        <span class="tag">Privacidade</span>
-        <h2>Seus dados pertencem a você</h2>
-        <p>Desenvolvido com privacidade como prioridade. Nenhuma informação financeira sai do seu dispositivo.</p>
+    <div class="split-inner reveal">
+      <div class="split-left">
+        <div class="section-pre">Privacidade</div>
+        <h2>Seus dados são seus.<br/><span class="accent">Ponto final.</span></h2>
+        <p>Desenvolvido com privacidade como prioridade absoluta. Nenhuma informação financeira sai do seu dispositivo.</p>
       </div>
-      <div class="privacy-items">
-        <div class="privacy-item"><div class="privacy-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="5" y="2" width="14" height="20" rx="2"/></svg></div><div><h4>Armazenamento local</h4><p>Todos os dados ficam no SQLite do dispositivo. Sem nuvem, sem backup em servidor externo.</p></div></div>
-        <div class="privacy-item"><div class="privacy-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div><div><h4>IA com resumo anônimo</h4><p>A Kelly envia apenas um resumo financeiro sem identificação à API Gemini. Nenhum dado pessoal.</p></div></div>
-        <div class="privacy-item"><div class="privacy-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div><div><h4>Sem cadastro</h4><p>Não pedimos nome, e-mail ou qualquer dado pessoal. Abre e começa a usar.</p></div></div>
-        <div class="privacy-item"><div class="privacy-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div><div><h4>Sem rastreamento</h4><p>Nenhum SDK de analytics, nenhum pixel, nenhum cookie de terceiros.</p></div></div>
+      <div class="split-items">
+        <div class="split-item"><div class="s-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="5" y="2" width="14" height="20" rx="2"/></svg></div><div><h4>Armazenamento local</h4><p>Todos os dados ficam no SQLite do dispositivo. Sem nuvem, sem servidor externo.</p></div></div>
+        <div class="split-item"><div class="s-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div><div><h4>IA com resumo anônimo</h4><p>A Kelly envia apenas um resumo sem identificação à API Gemini. Nenhum dado pessoal é transmitido.</p></div></div>
+        <div class="split-item"><div class="s-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div><div><h4>Sem cadastro</h4><p>Não pedimos nome, e-mail ou nenhum dado pessoal. Abre o app e começa a usar.</p></div></div>
+        <div class="split-item"><div class="s-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div><div><h4>Sem rastreamento</h4><p>Nenhum SDK de analytics, nenhum pixel, nenhum cookie de terceiros.</p></div></div>
       </div>
     </div>
   </div>
 </section>
 
-<section class="cta reveal">
+<!-- CTA -->
+<section class="cta">
   <div class="container">
-    <div class="cta-inner">
-      <span class="tag">Download gratuito</span>
-      <h2>Comece hoje.<br/>Gratuito para sempre.</h2>
-      <p>Sem assinatura, sem anúncios, sem dados vendidos.</p>
-      <a href="https://github.com/adlernatanael/kelly-landing/releases/download/v1.0.0/kelly.apk" class="btn-primary">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+    <div class="cta-box reveal">
+      <div class="cta-left">
+        <h2>Comece hoje.<br/><span class="accent">Gratuito para sempre.</span></h2>
+        <p>Sem assinatura, sem anúncios, sem dados vendidos.</p>
+      </div>
+      <a href="https://github.com/adlernatanael/kelly-landing/releases/download/v1.0.0/kelly.apk" class="btn-dl-light">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
         Baixar APK para Android
       </a>
     </div>
   </div>
 </section>
 
+<!-- FOOTER -->
 <footer>
   <div class="container">
-    <span class="footer-brand">Kelly</span>
+    <span class="f-brand">Kelly</span>
     <p>Contato: <a href="mailto:natanaeladlersm@gmail.com">natanaeladlersm@gmail.com</a></p>
     <p>© 2026. Todos os direitos reservados.</p>
   </div>
 </footer>
 
 <script>
-  document.getElementById('nav').addEventListener('scroll', () => {}, { passive: true });
-  window.addEventListener('scroll', () => {
-    document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 40);
-  }, { passive: true });
+  /* Dot canvas */
+  const canvas = document.getElementById('dotCanvas');
+  const ctx = canvas.getContext('2d');
+  function drawDots() {
+    const W = canvas.parentElement.offsetWidth;
+    const H = canvas.parentElement.offsetHeight;
+    canvas.width = W; canvas.height = H;
+    ctx.clearRect(0, 0, W, H);
+    const gap = 22, r = 1.5;
+    const cols = Math.ceil(W / gap), rows = Math.ceil(H / gap);
+    for (let row = 0; row < rows; row++) {
+      for (let col = 0; col < cols; col++) {
+        const x = col * gap, y = row * gap;
+        /* Mountain silhouette: dots above the curve get rendered */
+        const peak1 = H * 0.55 - Math.sin((col / cols) * Math.PI * 1.2) * H * 0.4;
+        const peak2 = H * 0.75 - Math.sin((col / cols) * Math.PI * 0.8 + 0.5) * H * 0.25;
+        const threshold = Math.min(peak1, peak2);
+        if (y > threshold) {
+          const alpha = Math.min(1, (y - threshold) / (H * 0.3)) * 0.4;
+          ctx.beginPath();
+          ctx.arc(x, y, r, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(37,99,235,${alpha})`;
+          ctx.fill();
+        }
+      }
+    }
+  }
+  drawDots();
+  window.addEventListener('resize', drawDots);
 
-  new IntersectionObserver((entries) => {
+  /* Reveal */
+  const io = new IntersectionObserver(entries => {
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-  }, { threshold: 0.1 }).observe.bind(
-    new IntersectionObserver((entries) => {
-      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-    }, { threshold: 0.1 })
-  );
-
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-  }, { threshold: 0.1 });
+  }, { threshold: 0.08 });
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
-  const carousel = document.getElementById('carousel');
-  const slides   = Array.from(carousel.querySelectorAll('.slide'));
-  const dotsWrap = document.getElementById('dots');
+  /* Carousel */
+  const carousel  = document.getElementById('carousel');
+  const slides    = Array.from(carousel.querySelectorAll('.slide'));
+  const counter   = document.getElementById('ccounter');
+  const barFill   = document.getElementById('cbarfill');
+  const total     = slides.length;
   let cur = 0, timer;
 
-  slides.forEach((_, i) => {
-    const d = document.createElement('button');
-    d.className = 'dot' + (i === 0 ? ' active' : '');
-    d.addEventListener('click', () => goTo(i));
-    dotsWrap.appendChild(d);
-  });
+  function fmt(n) { return String(n + 1).padStart(2, '0'); }
+
+  function updateState() {
+    slides.forEach((s, i) => {
+      s.classList.remove('active', 'near');
+      const d = Math.abs(i - cur);
+      if (d === 0) s.classList.add('active');
+      else if (d === 1) s.classList.add('near');
+    });
+    counter.textContent = fmt(cur) + ' / ' + fmt(total - 1);
+    barFill.style.width = ((cur + 1) / total * 100) + '%';
+  }
 
   function goTo(idx) {
-    cur = (idx + slides.length) % slides.length;
-    slides.forEach((s, i) => s.classList.toggle('active', i === cur));
-    dotsWrap.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === cur));
+    cur = ((idx % total) + total) % total;
+    updateState();
     const s = slides[cur];
     carousel.scrollTo({ left: s.offsetLeft - carousel.offsetWidth / 2 + s.offsetWidth / 2, behavior: 'smooth' });
   }
 
-  document.getElementById('prevBtn').addEventListener('click', () => { clearInterval(timer); goTo(cur - 1); timer = setInterval(() => goTo(cur + 1), 3800); });
-  document.getElementById('nextBtn').addEventListener('click', () => { clearInterval(timer); goTo(cur + 1); timer = setInterval(() => goTo(cur + 1), 3800); });
+  document.getElementById('prevBtn').addEventListener('click', () => { clearInterval(timer); goTo(cur - 1); resetTimer(); });
+  document.getElementById('nextBtn').addEventListener('click', () => { clearInterval(timer); goTo(cur + 1); resetTimer(); });
 
   carousel.addEventListener('scroll', () => {
     const center = carousel.scrollLeft + carousel.offsetWidth / 2;
-    let closest = 0, minDist = Infinity;
-    slides.forEach((s, i) => { const d = Math.abs(s.offsetLeft + s.offsetWidth / 2 - center); if (d < minDist) { minDist = d; closest = i; } });
-    if (closest !== cur) { cur = closest; slides.forEach((s, i) => s.classList.toggle('active', i === cur)); dotsWrap.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === cur)); }
+    let cl = 0, md = Infinity;
+    slides.forEach((s, i) => { const d = Math.abs(s.offsetLeft + s.offsetWidth / 2 - center); if (d < md) { md = d; cl = i; } });
+    if (cl !== cur) { cur = cl; updateState(); }
   }, { passive: true });
 
+  let touchX = 0;
+  carousel.addEventListener('touchstart', e => { touchX = e.touches[0].clientX; clearInterval(timer); }, { passive: true });
+  carousel.addEventListener('touchend', e => { const dx = e.changedTouches[0].clientX - touchX; if (Math.abs(dx) > 40) goTo(cur + (dx < 0 ? 1 : -1)); resetTimer(); }, { passive: true });
+
+  carousel.addEventListener('mouseenter', () => clearInterval(timer));
+  carousel.addEventListener('mouseleave', () => resetTimer());
+
+  function resetTimer() { timer = setInterval(() => goTo(cur + 1), 4200); }
+
   goTo(0);
-  timer = setInterval(() => goTo(cur + 1), 3800);
+  resetTimer();
 </script>
 </body>
 </html>
